@@ -10,11 +10,12 @@ public class RandomRotator : MonoBehaviour
     public float tumble;
     public GameObject explosion;
     public GameObject playerExplosion;
-
+    private GameController gameController;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameController = FindObjectOfType<GameController>();
         rb.angularVelocity = Random.insideUnitSphere * tumble;
     }
     
@@ -29,6 +30,10 @@ public class RandomRotator : MonoBehaviour
         {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
             //gameController.GameOver();
+        }
+        if (other.tag == "Bolt")
+        {
+            gameController.AddScore(5);
         }
         Destroy(other.gameObject);
         Destroy(gameObject);
