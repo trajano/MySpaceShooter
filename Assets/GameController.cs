@@ -30,15 +30,18 @@ public class GameController : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
+        float waveSpeedFactor = 1.0f;
         while (true)
         {
-            for (int i = 0; i < hazardCount; i++)
+            for (int i = 0; i < hazardCount * waveSpeedFactor; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
-                yield return new WaitForSeconds(spawnWait);
+                var asteroidGameObject = Instantiate(hazard, spawnPosition, spawnRotation);
+                asteroidGameObject.GetComponent<Mover>().speed *= waveSpeedFactor;
+                yield return new WaitForSeconds(spawnWait/waveSpeedFactor);
             }
+            waveSpeedFactor += 1.0f;
             yield return new WaitForSeconds(waveWait);
             if (gameOver)
             {
