@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
                 Quaternion spawnRotation = Quaternion.identity;
                 var asteroidGameObject = Instantiate(hazard, spawnPosition, spawnRotation);
                 asteroidGameObject.GetComponent<Mover>().speed *= waveSpeedFactor;
-                yield return new WaitForSeconds(spawnWait/waveSpeedFactor);
+                yield return new WaitForSeconds(spawnWait / waveSpeedFactor);
             }
             waveSpeedFactor += 1.0f;
             yield return new WaitForSeconds(waveWait);
@@ -65,9 +65,11 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (restart && Input.GetKeyUp(KeyCode.R)   )
+        if (restart && Input.GetKeyUp(KeyCode.R))
         {
-            Application.LoadLevel(Application.loadedLevel); 
+
+            int sceneBuildIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneBuildIndex);
         }
     }
 
