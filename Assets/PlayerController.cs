@@ -29,13 +29,30 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.touchCount > 0 && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(shot, shotSpawn.position, Quaternion.identity);
+
+            audioSource.clip = fireSound;
+            audioSource.Play();
+        }
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, Quaternion.identity);
-            
+
             audioSource.clip = fireSound;
             audioSource.Play();
+        }
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            // Get movement of the finger since last frame
+            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+
+            // Move object across XY plane
+            transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
         }
     }
     void FixedUpdate()
@@ -54,6 +71,7 @@ public class PlayerController : MonoBehaviour
         );
 
         rb.rotation = Quaternion.Euler(rb.velocity.z * tilt/2, 0.0f, rb.velocity.x * -tilt);
+
     }
 
     private void OnDestroy()

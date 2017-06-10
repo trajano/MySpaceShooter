@@ -4,6 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour
 {
     public GameObject[] hazards;
+    public GameObject enemyShipHazard;
     public Vector3 spawnValues;
     public int hazardCount;
     public float spawnWait;
@@ -35,11 +36,20 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < hazardCount * waveSpeedFactor; i++)
             {
-                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                GameObject hazard;
                 Quaternion spawnRotation = Quaternion.identity;
-                var asteroidGameObject = Instantiate(hazard, spawnPosition, spawnRotation);
-                asteroidGameObject.GetComponent<Mover>().speed *= waveSpeedFactor;
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                if (i + 1 == hazardCount)
+                {
+                    spawnRotation = Quaternion.Euler(0.0f,180.0f,0.0f);
+                    Instantiate(enemyShipHazard, spawnPosition, spawnRotation);
+                }
+                else if (!gameOver)
+                {
+                    hazard = hazards[Random.Range(0, hazards.Length)];
+                    var asteroidGameObject = Instantiate(hazard, spawnPosition, spawnRotation);
+                    asteroidGameObject.GetComponent<Mover>().speed *= waveSpeedFactor;
+                }
                 yield return new WaitForSeconds(spawnWait / waveSpeedFactor);
             }
             waveSpeedFactor += 1.0f;

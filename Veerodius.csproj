@@ -86,7 +86,9 @@
   <ItemGroup>
     <Compile Include="Assets\BackgroundScroller.cs" />
     <Compile Include="Assets\DestroyByBoundary.cs" />
+    <Compile Include="Assets\DestroyByContact.cs" />
     <Compile Include="Assets\DestroyByTime.cs" />
+    <Compile Include="Assets\EvasiveManeuver.cs" />
     <Compile Include="Assets\GameController.cs" />
     <Compile Include="Assets\Mover.cs" />
     <Compile Include="Assets\PlayerController.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Assets\SapphiArt\SapphiArtchan\Scripts\AnimationManagerUI.cs" />
     <Compile Include="Assets\SapphiArt\SapphiArtchan\Scripts\SapphiArtChan_AnimManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\WeaponController.cs" />
     <Compile Include="Assets\_Complete-Game\Scripts\Done_BGScroller.cs" />
     <Compile Include="Assets\_Complete-Game\Scripts\Done_DestroyByBoundary.cs" />
     <Compile Include="Assets\_Complete-Game\Scripts\Done_DestroyByContact.cs" />
